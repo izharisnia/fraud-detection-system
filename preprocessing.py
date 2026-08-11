@@ -123,6 +123,17 @@ def preprocess_single_transaction(input_dict, feature_columns, scaler=None):
     is_night = 1 if hour < 6 else 0
     is_merchant = 1 if nameDest.startswith('M') else 0
 
+    is_high_risk_type = 1 if tx_type in ['TRANSFER', 'CASH_OUT'] else 0
+    if is_high_risk_type and (drained_to_zero or relative_amount > 0.8):
+        fraud_in_rate_smooth = 1.0
+        suspicion_score = 0.6614
+    elif is_high_risk_type:
+        fraud_in_rate_smooth = 0.15
+        suspicion_score = 0.45
+    else:
+        fraud_in_rate_smooth = 0.001
+        suspicion_score = 0.1 if is_merchant else 0.2
+
     feature_dict = {
         'step': np.int32(step),
         'type': np.int8(type_code),
@@ -144,8 +155,8 @@ def preprocess_single_transaction(input_dict, feature_columns, scaler=None):
         'is_merchant': np.int8(is_merchant),
         'unique_senders': np.float32(1.0),
         'total_received': np.float32(amount),
-        'fraud_in_rate_smooth': np.float32(0.001),
-        'suspicion_score': np.float32(0.1 if is_merchant else 0.4)
+        'fraud_in_rate_smooth': np.float32(fraud_in_rate_smooth),
+        'suspicion_score': np.float32(suspicion_score)
     }
 
     df_single = pd.DataFrame([feature_dict])
