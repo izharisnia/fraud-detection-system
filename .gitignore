@@ -1,0 +1,16 @@
+# Ignore large raw dataset files (GitHub 100MB limit)
+Fraud.csv
+*.csv
+
+# Python cache & environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.streamlit/secrets.toml
+.DS_Store
+*.log

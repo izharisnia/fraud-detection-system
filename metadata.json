@@ -1,0 +1,31 @@
+{
+    "model_type": "LightGBM Classifier",
+    "trained_date": "2026-08-11 11:56:56",
+    "best_threshold": 0.1,
+    "roc_auc": 0.9914,
+    "feature_columns": [
+        "step",
+        "type",
+        "amount",
+        "oldbalanceOrg",
+        "newbalanceOrig",
+        "oldbalanceDest",
+        "newbalanceDest",
+        "org_balance_diff",
+        "dest_balance_diff",
+        "relative_amount",
+        "drained_to_zero",
+        "hour",
+        "is_night",
+        "orig_tx_count",
+        "orig_tx_avg_amt",
+        "dest_tx_count",
+        "dest_tx_avg_amt",
+        "is_merchant",
+        "unique_senders",
+        "total_received",
+        "fraud_in_rate_smooth",
+        "suspicion_score"
+    ],
+    "sample_frac": 0.2
+}
